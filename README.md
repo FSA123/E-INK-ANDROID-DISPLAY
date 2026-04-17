@@ -31,7 +31,7 @@ Important subfolders:
 - `MCU-Android API-1.6.1-20260120/`  
   MCU power/serial API jars + native `.so` + API PDF docs.
 - `xt-epd-deivce-demo/`  
-  Main Android demo integrating MQTT + T1000 + MCU + USB resource playback.
+  Main Android demo integrating MQTT + T1000 + MCU + USB resource playback (original folder spelling in repository is `deivce`).
 - `xt-t1000-mcu-demo-3.0.0/`  
   Additional API demo app.
 
@@ -73,14 +73,14 @@ Important subfolders:
 
 ## 4) Prerequisites
 
-## Hardware
+### Hardware
 
 - Android E‑INK terminal device (Android 7.1 class target)
 - EPD module + T1000 or IT8951 board
 - MCU/power board (if your hardware includes it)
 - USB cable and optionally FAT32 USB flash disk for offline resources
 
-## Software
+### Software
 
 - Android Studio (recent stable)
 - JDK 8+ (project uses Java 8 compatibility)
