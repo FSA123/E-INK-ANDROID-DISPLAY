@@ -31,7 +31,7 @@ Important subfolders:
 - `MCU-Android API-1.6.1-20260120/`  
   MCU power/serial API jars + native `.so` + API PDF docs.
 - `xt-epd-deivce-demo/`  
-  Main Android demo integrating MQTT + T1000 + MCU + USB resource playback (original folder spelling in repository is `deivce`; consider renaming in a future refactor for consistency).
+  Main Android demo integrating MQTT + T1000 + MCU + USB resource playback.
 - `xt-t1000-mcu-demo-3.0.0/`  
   Additional API demo app.
 
