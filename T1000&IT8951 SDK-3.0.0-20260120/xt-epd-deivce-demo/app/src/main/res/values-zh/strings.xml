@@ -1,0 +1,21 @@
+<resources>
+
+
+    <string name="app_name">EPD Demo</string>
+    <string name="btn_sure">确定</string>
+    <string name="log">日志</string>
+    <string name="clear">清空</string>
+    <string name="device_init_setting">初始化设置</string>
+    <string name="epd_type">EPD类型：</string>
+    <string name="battery_type">电池类型：</string>
+    <string name="mqtt_config">MQTT配置</string>
+    <string name="restart_service">重启服务</string>
+    <string name="serial_setting">MCU串口设置</string>
+    <string name="start_service">启动服务</string>
+    <string name="stop_service">停止服务</string>
+    <string name="serial_path">串口路径：</string>
+    <string name="auto_open_front_light">开机打开前光</string>
+    <string name="tip_invalid_config">请先配置相关参数</string>
+    <string name="auto_boot_app">自启动</string>
+
+</resources>

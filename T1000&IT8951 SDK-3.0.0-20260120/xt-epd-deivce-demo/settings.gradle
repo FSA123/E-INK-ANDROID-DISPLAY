@@ -1,0 +1,1 @@
+include ':app',':mqtt',':sys-api',':smt40a-sys-api'

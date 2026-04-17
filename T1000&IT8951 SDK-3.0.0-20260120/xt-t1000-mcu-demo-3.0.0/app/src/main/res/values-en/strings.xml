@@ -1,0 +1,157 @@
+<resources>
+
+    <string name="app_name">兴泰SDK Demo</string>
+    <string name="btn_sure">Confirm</string>
+    <string name="t1000_setting">T1000</string>
+    <string name="t1000_test">T1000(ITE8951) Test</string>
+    <string name="please_select_device">Please select device:</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="select_image">Select Image</string>
+    <string name="img_width">Width</string>
+    <string name="img_height">Height</string>
+    <string name="display_mode">Display Mode</string>
+    <string name="dither">Dither</string>
+    <string name="display">Display</string>
+    <string name="clear_screen">Clear Screen</string>
+    <string name="log">Log</string>
+    <string name="clear">Clear</string>
+    <string name="tip_not_find_device">Device not found or not connected：</string>
+    <string name="tip_device_connect_success">Device successfully connected</string>
+    <string name="tip_device_connect_failure">Device connection failed</string>
+    <string name="tip_device_disconnect_failure">Device disconnected successfully</string>
+
+    <string name="tip_not_select_image">No picture selected</string>
+    <string name="tip_please_specify_display_parameters">Please specify display parameters</string>
+    <string name="tip_please_specify_display_mode">Please specify the display mode</string>
+    <string name="tip_coordinate_crossing">X coordinate out of range or Y coordinate out of range</string>
+    <string name="tip_display_waiting">Starting to display image, please wait</string>
+    <string name="tip_display_image_success">Image display successful</string>
+    <string name="tip_image_display_failure">Failed to display image：</string>
+
+    <string name="tip_clear_display_waiting">Starting screen clear, please wait</string>
+    <string name="tip_clear_display_success">Clear screen display successful</string>
+    <string name="tip_clear_display_failure">Clear screen display failed：</string>
+
+
+    <string name="mcu_test">MCU Test</string>
+    <string name="select_serial_port">Select serial port：</string>
+    <string name="heartbeat">Heartbeat</string>
+    <string name="mcu_control_board_info">mcu control board info</string>
+    <string name="mcu_no">no</string>
+    <string name="mcu_time">time</string>
+    <string name="delay_time">time(unit:second)</string>
+    <string name="timing_remind">Timed reminder</string>
+    <string name="main_power_delay_turning_off">Main power delay off(1-255 second)</string>
+    <string name="main_power_only_off">Main power(only off)</string>
+    <string name="t1000_power_switch">T1000 power switch</string>
+    <string name="five_v_power_switch">5V power switch</string>
+    <string name="power_control">Power Control</string>
+    <string name="delay_boot">Delay Boot</string>
+    <string name="tip_heartbeat_success">Sending heartbeat successfully</string>
+    <string name="tip_heartbeat_failure">Sending heartbeat failed</string>
+    <string name="tip_get_mcu_success">Successfully obtained mcu information</string>
+    <string name="tip_get_mcu_failure">Failed to obtain mcu information</string>
+    <string name="tip_time_is_null">Time is empty</string>
+    <string name="tip_time_error">Time must be greater than 0</string>
+    <string name="tip_timing_remind_end">Timer reminder countdown ends</string>
+    <string name="tip_timing_remind_success">Successfully sent timed reminder</string>
+    <string name="tip_timing_remind_failure">Failed to send timed reminder</string>
+    <string name="tip_power_control_success">Power control successful</string>
+    <string name="tip_power_control_failure">Power control failure</string>
+    <string name="tip_select_device">Please select device</string>
+    <string name="tip_delay_startup_success">Delayed startup successful</string>
+    <string name="tip_delay_startup_failure">Delayed startup failure</string>
+    <string name="key_touch">Trigger button：</string>
+    <string name="key_short_press">Short press</string>
+    <string name="key_long_press">Long press</string>
+    <string name="battery_fully_charged" >Fully charged, battery level changed：</string>
+    <string name="battery_charging">During charging, the battery level changes：</string>
+    <string name="battery_not_charging">Not charging, battery level changed：</string>
+
+    <string name="please_select_screen_type">Please select screen type:</string>
+    <string name="screen_type">Screen type</string>
+    <string name="tip_get_device_info_failure">Failed to obtain device information. Please check</string>
+    <string name="low_power">Low Power</string>
+    <string name="low_power_mode">Low Power Mode</string>
+    <string name="tip_low_power_success">Low power operation successful</string>
+    <string name="tip_low_power_failure">Low power operation failed</string>
+
+    <string name="firmware_upgrade">Firmware Upgrade</string>
+    <string name="select_file">Please select file</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="dlg_cancel">Cancel</string>
+    <string name="dlg_confirm">Confirm</string>
+    <string name="tip_not_find_firmware">No firmware found in the Download directory</string>
+    <string name="tip_not_select_file">No file selected</string>
+    <string name="tip_upgrade_waiting">Starting firmware upgrade, please wait</string>
+    <string name="tip_update_successfully">Update successfully</string>
+    <string name="tip_update_failure">Update failure</string>
+    <string name="tip_firmware_file_not_exist">Firmware file does not exist</string>
+
+    <string name="multi_screen_test">T1000(ITE8951)Multi screen test</string>
+    <string name="slicing">Slicing</string>
+    <string name="row">Row</string>
+    <string name="column">Column</string>
+    <string name="tip_not_find_available_device">No available devices found</string>
+    <string name="tip_not_find_available_connection">No available connection</string>
+    <string name="tip_row_col_not_null">Rows or columns cannot be empty</string>
+    <string name="tip_cutting_image_waiting">Starting to cut the image, please wait</string>
+    <string name="tip_processing_image_waiting">Starting to process images, please wait</string>
+    <string name="tip_cut_image_resolution_not_match">The resolution of the cut image does not match the screen resolution. Please check</string>
+    <string name="tip_split_screen_loading_failed">:Image split screen loading failed:</string>
+    <string name="tip_split_screen_display_success">:Split screen display image successful</string>
+    <string name="tip_split_screen_display_failure">:Split screen image display failed</string>
+    <string name="tip_split_screen_clear_display_success">:Split screen clear display successful</string>
+    <string name="tip_split_screen_clear_display_failure">:Split screen clear display failed</string>
+    <string name="tip_device_init_success">Device initialization successful</string>
+    <string name="tip_device_init_failed">Device initialization failed</string>
+    <string name="tip_image_loading_waiting">Image loading, please wait</string>
+
+    <string name="tip_image_load_failure">Failed to load image:</string>
+    <string name="tip_image_load_success">Image load successful</string>
+    <string name="get_device_info">Device Info</string>
+    <string name="get_temperature">Get Temperature</string>
+    <string name="set_temperature">Set Temperature</string>
+    <string name="get_vcom">Get VCom</string>
+    <string name="set_vcom">Set Com</string>
+    <string name="temperature">Temperature</string>
+    <string name="vcom">VCom(mV)</string>
+    <string name="tip_set_temperature_failure">Setting temperature failed：</string>
+    <string name="tip_set_temperature_success">Successfully set temperature</string>
+    <string name="tip_set_vcom_success">Successfully set VCom</string>
+    <string name="tip_set_vcom_failure">Setting VCom failed：</string>
+    <string name="tip_load_waiting">Starting to load image, please wait</string>
+    <string name="load_image">Load Image</string>
+    <string name="tip_current_temperature">:current temperature：</string>
+    <string name="tip_unable_read_temperature">:unable to read temperature,currentTemperature:</string>
+    <string name="tip_unable_write_temperature">:unable to write temperature,ret:</string>
+
+    <string name="brightness_down">Brightness -</string>
+    <string name="brightness_up">Brightness +</string>
+    <string name="brightness_level">brightness level（1~10）</string>
+    <string name="brightness_level_is_null">The brightness level is empty</string>
+    <string name="tip_brightness_adjust_success">Brightness adjustment successful</string>
+    <string name="tip_brightness_adjust_failure">Brightness adjustment failure</string>
+    <string name="please_select_refresh_mode">Refresh Mode</string>
+
+    <string name="led_control">LED Control</string>
+    <string name="led_lamp">LED lamp</string>
+    <string name="led_green">Green</string>
+    <string name="led_red">Red</string>
+    <string name="led_blue">Blue</string>
+    <string name="led_interval">Interval</string>
+    <string name="led_interval_time">Interval(second)</string>
+    <string name="led_flashing">Flashing</string>
+    <string name="led_flashing_frequency">Flashing frequency</string>
+    <string name="led_execute">Execute</string>
+    <string name="tip_time_interval_is_null">The time interval is empty</string>
+    <string name="tip_time_interval_error">The time interval must be greater than 0</string>
+    <string name="tip_flashing_frequency_is_null">The flashing frequency is empty</string>
+    <string name="tip_flashing_frequency_error">The number of flashes must be greater than 0</string>
+    <string name="tip_led_control_success">LED control successful</string>
+    <string name="tip_led_control_failure">LED control failure</string>
+
+    <string name="tip_wbf_upgrade_waiting">Starting wbf upgrade, please wait</string>
+    <string name="tip_wbf_file_not_exist">Wbf file does not exist</string>
+</resources>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_serial_port" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connect" />
+
+        <Button
+            android:id="@+id/btn_disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disconnect" />
+        <CheckBox
+            android:id="@+id/cb_low_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/low_power" />
+        <Button
+            android:id="@+id/btn_low_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/low_power_mode" />
+        <Button
+            android:id="@+id/btn_heartbeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/heartbeat" />
+        <Button
+            android:id="@+id/btn_mcu_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mcu_control_board_info" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/mcu_no" />
+
+        <EditText
+            android:id="@+id/et_no"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:hint="@string/mcu_no"
+            android:inputType="number"
+            android:textSize="@dimen/dp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:hint="@string/mcu_time" />
+
+        <EditText
+            android:id="@+id/et_delay_time"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:hint="@string/delay_time"
+            android:inputType="number"
+            android:text="5"
+            android:textSize="@dimen/dp_12" />
+
+        <Button
+            android:id="@+id/btn_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timing_remind" />
+
+    </LinearLayout>
+    <!--    电源控制-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_12"
+        android:text="@string/power_control"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/main_power_delay_turning_off" />
+
+        <EditText
+            android:id="@+id/et_main_delay_time"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/delay_time"
+            android:inputType="number"
+            android:text="5"
+            android:textSize="@dimen/dp_12" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_main_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/main_power_only_off" />
+
+        <CheckBox
+            android:id="@+id/cb_t1000_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/t1000_power_switch" />
+
+        <CheckBox
+            android:id="@+id/cb_5v_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/five_v_power_switch" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_power_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/power_control" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <Button
+            android:id="@+id/btn_front_light_brightness_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brightness_down" />
+        <EditText
+            android:id="@+id/et_brightness_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/brightness_level"
+            android:text="1"
+            android:gravity="center"
+            android:inputType="number"
+            android:textSize="@dimen/dp_12" />
+        <Button
+            android:id="@+id/btn_front_light_brightness_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brightness_up" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/mcu_no" />
+
+        <EditText
+            android:id="@+id/et_boot_no"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:hint="@string/mcu_no"
+            android:inputType="number"
+            android:textSize="@dimen/dp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:hint="@string/mcu_time" />
+
+        <EditText
+            android:id="@+id/et_boot_delay_time"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:hint="@string/delay_time"
+            android:inputType="number"
+            android:text="10"
+            android:textSize="@dimen/dp_12" />
+
+        <Button
+            android:id="@+id/btn_boot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delay_boot" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_14"
+        android:text="@string/led_control"/>
+    <CheckBox
+        android:id="@+id/cb_led"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/led_lamp" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/cb_green_led"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/led_green" />
+
+        <RadioButton
+            android:id="@+id/cb_red_led"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/led_red" />
+
+        <RadioButton
+            android:id="@+id/cb_blue_led"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/led_blue" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/led_interval" />
+
+        <EditText
+            android:id="@+id/et_led_interval"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:hint="@string/led_interval_time"
+            android:text="1"
+            android:inputType="number"
+            android:textSize="@dimen/dp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:hint="@string/led_flashing" />
+
+        <EditText
+            android:id="@+id/et_led_times"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:hint="@string/led_flashing_frequency"
+            android:inputType="number"
+            android:text="10"
+            android:textSize="@dimen/dp_12" />
+
+        <Button
+            android:id="@+id/btn_led_execute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/led_execute" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/firmware_upgrade"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_14" />
+    <LinearLayout
+        android:id="@+id/ll_update_file"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_update_file"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/select_file"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dp_14" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_19"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/ic_setting_right_arrow" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upgrade" />
+    <!--    日志-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/log" />
+
+            <Button
+                android:id="@+id/btn_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:overScrollMode="never">
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#666"
+                android:textSize="14sp" />
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</LinearLayout>

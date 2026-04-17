@@ -1,0 +1,158 @@
+<resources>
+
+
+    <string name="app_name">兴泰SDK Demo</string>
+    <string name="btn_sure">确定</string>
+    <string name="t1000_setting">T1000设置</string>
+    <string name="t1000_test">T1000(ITE8951)测试</string>
+    <string name="please_select_device">请选择设备:</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="select_image">选择图片</string>
+    <string name="img_width">宽</string>
+    <string name="img_height">高</string>
+    <string name="display_mode">显示模式</string>
+    <string name="dither">抖点</string>
+    <string name="display">显示图像</string>
+    <string name="clear_screen">清屏</string>
+    <string name="log">日志</string>
+    <string name="clear">清空</string>
+    <string name="tip_not_find_device">设备未发现或未连接：</string>
+    <string name="tip_device_connect_success">设备连接成功</string>
+    <string name="tip_device_connect_failure">设备连接失败</string>
+    <string name="tip_device_disconnect_failure">设备断开连接成功</string>
+
+    <string name="tip_not_select_image">未选择图片</string>
+    <string name="tip_please_specify_display_parameters">请指定显示参数</string>
+    <string name="tip_please_specify_display_mode">请指定显示模式</string>
+    <string name="tip_coordinate_crossing">X坐标越界或Y坐标越界</string>
+    <string name="tip_display_waiting">开始显示图像，请稍等...</string>
+    <string name="tip_display_image_success">显示图像成功</string>
+    <string name="tip_image_display_failure">显示图像失败：</string>
+
+    <string name="tip_clear_display_waiting">开始清屏，请稍等...</string>
+    <string name="tip_clear_display_success">清屏显示成功</string>
+    <string name="tip_clear_display_failure">清屏显示失败：</string>
+
+
+    <string name="mcu_test">MCU测试</string>
+    <string name="select_serial_port">选择串口：</string>
+    <string name="heartbeat">心跳</string>
+    <string name="mcu_control_board_info">mcu控制板信息</string>
+    <string name="mcu_no">编号</string>
+    <string name="mcu_time">时间</string>
+    <string name="delay_time">时间(秒)</string>
+    <string name="timing_remind">定时提醒</string>
+    <string name="main_power_delay_turning_off">总电源关闭前延时(秒)，1-255秒</string>
+    <string name="main_power_only_off">总电源(只关)</string>
+    <string name="t1000_power_switch">T1000电源开关</string>
+    <string name="five_v_power_switch">5V电源开关</string>
+    <string name="power_control">电源控制</string>
+    <string name="delay_boot">延时开机</string>
+    <string name="tip_heartbeat_success">发送心跳成功</string>
+    <string name="tip_heartbeat_failure">发送心跳失败</string>
+    <string name="tip_get_mcu_success">获取mcu信息成功</string>
+    <string name="tip_get_mcu_failure">获取mcu信息失败</string>
+    <string name="tip_time_is_null">时间为空</string>
+    <string name="tip_time_error">时间必须大于0</string>
+    <string name="tip_timing_remind_end">定时提醒倒计时结束</string>
+    <string name="tip_timing_remind_success">发送定时提醒成功</string>
+    <string name="tip_timing_remind_failure">发送定时提醒失败</string>
+    <string name="tip_power_control_success">电源控制成功</string>
+    <string name="tip_power_control_failure">电源控制失败</string>
+    <string name="tip_select_device">请选择设备</string>
+    <string name="tip_delay_startup_success">延时开机成功</string>
+    <string name="tip_delay_startup_failure">延时开机失败</string>
+    <string name="key_touch">触发按键：</string>
+    <string name="key_short_press">短按</string>
+    <string name="key_long_press">长按</string>
+    <string name="battery_fully_charged" >已充满，电池电量改变：</string>
+    <string name="battery_charging">充电中，电池电量改变：</string>
+    <string name="battery_not_charging">未充电，电池电量改变：</string>
+
+    <string name="please_select_screen_type">请选择屏幕类型</string>
+    <string name="screen_type">屏幕类型</string>
+    <string name="tip_get_device_info_failure">获取设备信息失败，请检查</string>
+    <string name="low_power">低功耗</string>
+    <string name="low_power_mode">低功耗模式</string>
+    <string name="tip_low_power_success">低功耗操作成功</string>
+    <string name="tip_low_power_failure">低功耗操作失败</string>
+
+    <string name="firmware_upgrade">固件升级</string>
+    <string name="select_file">选择文件</string>
+    <string name="upgrade">更新</string>
+    <string name="dlg_cancel">取消</string>
+    <string name="dlg_confirm">确认</string>
+    <string name="tip_not_find_firmware">Download目录未发现固件</string>
+    <string name="tip_not_select_file">未选择文件</string>
+    <string name="tip_upgrade_waiting">开始固件升级，请稍等</string>
+    <string name="tip_update_successfully">更新Firmware成功</string>
+    <string name="tip_update_failure">更新Firmware失败,ret：</string>
+    <string name="tip_firmware_file_not_exist">Firmware文件不存在</string>
+
+    <string name="multi_screen_test">T1000(ITE8951)多屏测试</string>
+    <string name="slicing">切割</string>
+    <string name="row">行</string>
+    <string name="column">列</string>
+    <string name="tip_not_find_available_device">未发现可用设备</string>
+    <string name="tip_not_find_available_connection">无可用连接</string>
+    <string name="tip_row_col_not_null">行或列不能为空</string>
+    <string name="tip_cutting_image_waiting">开始切割图片，请稍等...</string>
+    <string name="tip_processing_image_waiting">开始处理图片，请稍等...</string>
+    <string name="tip_cut_image_resolution_not_match">切割后图片的分辨率和屏幕分辨率不匹配，请检查</string>
+    <string name="tip_split_screen_loading_failed">:图像分屏加载失败:</string>
+    <string name="tip_split_screen_display_success">:分屏显示图像成功</string>
+    <string name="tip_split_screen_display_failure">:分屏显示图像失败</string>
+    <string name="tip_split_screen_clear_display_success">:分屏清屏显示成功</string>
+    <string name="tip_split_screen_clear_display_failure">:分屏清屏显示失败</string>
+    <string name="tip_device_init_success">设备初始化成功</string>
+    <string name="tip_device_init_failed">设备初始化失败</string>
+    <string name="tip_image_loading_waiting">图片加载中，请稍等...</string>
+
+    <string name="tip_image_load_failure">加载图像失败:</string>
+    <string name="tip_image_load_success">加载图像成功</string>
+    <string name="get_device_info">设备信息</string>
+    <string name="get_temperature">获取温度</string>
+    <string name="set_temperature">设置温度</string>
+    <string name="get_vcom">获取VCom</string>
+    <string name="set_vcom">设置VCom</string>
+    <string name="temperature">温度</string>
+    <string name="vcom">VCom(mV)</string>
+    <string name="tip_set_temperature_failure">设置温度失败：</string>
+    <string name="tip_set_temperature_success">设置温度成功</string>
+    <string name="tip_set_vcom_success">设置VCom成功</string>
+    <string name="tip_set_vcom_failure">设置VCom失败</string>
+    <string name="tip_load_waiting">开始加载图像，请稍等...</string>
+    <string name="load_image">加载图像</string>
+    <string name="tip_current_temperature">:当前温度是temperature：</string>
+    <string name="tip_unable_read_temperature">:无法读取温度，currentTemperature：</string>
+    <string name="tip_unable_write_temperature">:无法设置温度，ret：</string>
+
+    <string name="brightness_down">亮度-</string>
+    <string name="brightness_up">亮度+</string>
+    <string name="brightness_level">亮度级别（1~10）</string>
+    <string name="brightness_level_is_null">亮度等级为空</string>
+    <string name="tip_brightness_adjust_success">亮度调节成功</string>
+    <string name="tip_brightness_adjust_failure">亮度调节失败</string>
+    <string name="please_select_refresh_mode">刷新模式</string>
+
+    <string name="led_control">LED控制</string>
+    <string name="led_lamp">LED灯</string>
+    <string name="led_green">绿灯</string>
+    <string name="led_red">红灯</string>
+    <string name="led_blue">蓝灯</string>
+    <string name="led_interval">间隔</string>
+    <string name="led_interval_time">间隔(秒)</string>
+    <string name="led_flashing">闪烁</string>
+    <string name="led_flashing_frequency">闪烁(次)</string>
+    <string name="led_execute">执行</string>
+    <string name="tip_time_interval_is_null">时间间隔为空</string>
+    <string name="tip_time_interval_error">时间间隔必须大于0</string>
+    <string name="tip_flashing_frequency_is_null">闪烁次数为空</string>
+    <string name="tip_flashing_frequency_error">闪烁次数必须大于0</string>
+    <string name="tip_led_control_success">LED控制成功</string>
+    <string name="tip_led_control_failure">LED控制失败</string>
+
+    <string name="tip_wbf_upgrade_waiting">开始波形升级，请稍等</string>
+    <string name="tip_wbf_file_not_exist">波形文件不存在</string>
+</resources>

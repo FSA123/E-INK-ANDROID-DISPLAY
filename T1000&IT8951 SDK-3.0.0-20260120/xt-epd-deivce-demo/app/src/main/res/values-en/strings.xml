@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="app_name">EPD Demo</string>
+    <string name="btn_sure">Confirm</string>
+    <string name="log">Log</string>
+    <string name="clear">Clear</string>
+    <string name="device_init_setting">Initialization setting</string>
+    <string name="epd_type">EPD type:</string>
+    <string name="battery_type">Battery Type：</string>
+    <string name="mqtt_config">MQTT setting</string>
+    <string name="restart_service">Restart service</string>
+    <string name="serial_setting">MCU serial port setting</string>
+    <string name="start_service">Start service</string>
+    <string name="stop_service">Stop service</string>
+    <string name="serial_path">Serial port path：</string>
+    <string name="auto_open_front_light">Turn on the front light</string>
+    <string name="tip_invalid_config">Please configure the relevant parameters first</string>
+    <string name="auto_boot_app">Auto Launch</string>
+
+</resources>

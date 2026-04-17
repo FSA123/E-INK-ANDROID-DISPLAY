@@ -1,0 +1,20 @@
+[
+{
+  "name": "1.jpg",
+  "startX":0,
+  "startY":0,
+  "width":3200,
+  "height":1800,
+  "intervalTime":30,
+  "displayMode":0
+},
+{
+  "name": "2.jpeg",
+  "startX":0,
+  "startY":0,
+  "width":3200,
+  "height":1800,
+  "intervalTime":60,
+  "displayMode":0
+}
+]

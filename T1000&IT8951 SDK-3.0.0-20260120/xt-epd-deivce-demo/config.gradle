@@ -1,0 +1,50 @@
+ext {
+    //android
+    android = [
+
+            applicationId    : "com.xingtai.epd.device.demo",
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion    : 19,
+            targetSdkVersion : 30,
+            versionCode      : 7,
+            versionName      : "2.2.0"
+    ]
+
+    //version
+    version = [
+            //kotlin_version
+            kotlinVersion           : "1.4.21",
+
+            //androidx Version
+            androidxAppcompat       : "1.2.0",
+            androidxConstraintLayout: "2.0.4",
+            androidxMultidex        : "2.0.1",
+
+            gson                    : "2.8.5",
+            eventbus                : "3.1.1",
+            mmkv                    : "1.2.7",
+            autosize                : "v1.2.1",
+            filedownloader          : "1.7.7"]
+
+
+    //dependencies
+    dependencies = [
+
+            //kotlin
+            kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${version.kotlinVersion}",
+            // android
+            appcompat       : "androidx.appcompat:appcompat:${version.androidxAppcompat}",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:${version.androidxConstraintLayout}",
+            multidex        : "androidx.multidex:multidex:${version.androidxMultidex}",
+
+            gson            : "com.google.code.gson:gson:${version.gson}",
+            eventbus        : "org.greenrobot:eventbus:${version.eventbus}",
+            "mmkv"          : "com.tencent:mmkv:${version.mmkv}",
+            "autosize"      : "com.github.JessYanCoding:AndroidAutoSize:${version.autosize}",
+            "filedownloader": "com.liulishuo.filedownloader:library:${version.filedownloader}",
+
+    ]
+
+
+}

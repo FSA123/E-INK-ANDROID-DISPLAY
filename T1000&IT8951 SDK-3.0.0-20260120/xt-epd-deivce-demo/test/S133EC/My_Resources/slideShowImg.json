@@ -1,0 +1,20 @@
+[
+{
+  "name": "1.png",
+  "startX":0,
+  "startY":0,
+  "width":1600,
+  "height":1200,
+  "intervalTime":30,
+  "displayMode":2
+},
+{
+  "name": "2.png",
+  "startX":0,
+  "startY":0,
+  "width":1600,
+  "height":1200,
+  "intervalTime":60,
+  "displayMode":2
+}
+]

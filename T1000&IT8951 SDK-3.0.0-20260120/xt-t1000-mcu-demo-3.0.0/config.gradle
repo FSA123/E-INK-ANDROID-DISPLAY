@@ -1,0 +1,49 @@
+ext {
+    //android
+    android = [
+
+            applicationId:"com.xingtai.t1000.mcu.demo",
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion    : 19,
+            targetSdkVersion : 30,
+            versionCode      : 24,
+            versionName      : "3.0.0",
+    ]
+
+    //version,较新稳定库
+    version = [
+            //kotlin_version
+            kotlinVersion                : "1.6.0",
+
+            //androidx Version
+            androidxAppcompat            : "1.2.0",
+            androidxConstraintLayout     : "2.0.4",
+            androidxMultidex             : "2.0.1",
+            autosize                     : "v1.2.1",
+
+
+    ]
+
+
+    //dependencies
+    dependencies = [
+
+            //kotlin
+            kotlin                       : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version.kotlinVersion}",
+            // android
+            appcompat                    : "androidx.appcompat:appcompat:${version.androidxAppcompat}",
+            constraintLayout             : "androidx.constraintlayout:constraintlayout:${version.androidxConstraintLayout}",
+            multidex                     : "androidx.multidex:multidex:${version.androidxMultidex}",
+
+
+            "autosize"                     : "com.github.JessYanCoding:AndroidAutoSize:${version.autosize}",
+
+            
+    ]
+
+
+
+   
+    
+}
