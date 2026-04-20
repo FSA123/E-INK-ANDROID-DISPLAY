@@ -55,7 +55,15 @@ object ImgDownloadUtils {
 
                     epdImage.name = file.name
                     T1000HelperFactory.instance?.run {
-                        addImage(epdImage)
+                        val offered = addImage(epdImage)
+                        if (!offered) {
+                            LogWriter.w("ImgDownloadUtils: queue full, clear pending queue and enqueue latest image")
+                            clearImage()
+                            val retryOffered = addImage(epdImage)
+                            if (!retryOffered) {
+                                LogWriter.e("ImgDownloadUtils: enqueue failed even after queue reset")
+                            }
+                        }
                         requestSleepInterrupted()
 
                     }
