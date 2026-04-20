@@ -100,7 +100,7 @@ class MyMqttNotifyListener : MqttNotifyListener {
             val rawElement = rawElements.optJSONObject(i) ?: continue
             val destinationStopName = rawElement.optString("toStopName", "").trim()
             val displayedTime = rawElement.optString("displayedTime", "").trim()
-            if (destinationStopName.isEmpty() && displayedTime.isEmpty()) {
+            if (destinationStopName.isEmpty() || displayedTime.isEmpty()) {
                 continue
             }
 

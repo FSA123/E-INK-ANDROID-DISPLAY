@@ -277,7 +277,7 @@ object BusTextRenderUtils {
     private fun getDisplayedTimeRank(value: String): Int {
         val normalized = value.lowercase()
         return when {
-            normalized.contains("<<<") || normalized == "arriving" || normalized == "即将到站" -> 0
+            normalized == "<<<" || normalized == "arriving" || normalized == "即将到站" -> 0
             MINUTES_REGEX.containsMatchIn(normalized) -> 1
             HH_MM_REGEX.matches(normalized) -> 2
             else -> 3
