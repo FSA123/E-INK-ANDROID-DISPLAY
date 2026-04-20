@@ -41,8 +41,6 @@ object BusTextRenderUtils {
     private const val DEFAULT_WIDTH = 2560
     private const val DEFAULT_HEIGHT = 1440
     private const val MAX_CACHED_BUS_IMAGES = 20
-    private val MINUTES_REGEX = Regex("""(\d+)\s*min""", RegexOption.IGNORE_CASE)
-    private val HH_MM_REGEX = Regex("""^(\d{1,2}):(\d{2})$""")
 
     /**
      * Generate the bus-text image from [request], save it to the image cache directory,
@@ -56,27 +54,12 @@ object BusTextRenderUtils {
 
             val imgDir = AppConstant.getImgDir()
 
-            // 1. Extract the lines or start with an empty list
-            val originalLines = request.lines ?: emptyList()
+            // Use incoming order and keep only the first 5 entries.
+            val displayLines = (request.lines ?: emptyList()).take(MAX_LINES)
 
-            // 2. Sort by state order: "<<<" -> "__min" -> "hh:mm"
-            val sortedLines = originalLines.sortedWith(Comparator { a, b ->
-                val aTime = normalizeDisplayedTime(a.arrivalTime)
-                val bTime = normalizeDisplayedTime(b.arrivalTime)
-                val aRank = getDisplayedTimeRank(aTime)
-                val bRank = getDisplayedTimeRank(bTime)
-                if (aRank != bRank) {
-                    return@Comparator aRank.compareTo(bRank)
-                }
-                when (aRank) {
-                    1 -> extractMinuteValue(aTime).compareTo(extractMinuteValue(bTime))
-                    else -> 0
-                }
-            })
-
-            // 3. Generate the image using the sorted lines
+            // Generate the image from the selected lines.
             // (Note: height and width are swapped here to accommodate your 90-degree rotation)
-            val file = generateImage(sortedLines, height, width, imgDir)
+            val file = generateImage(displayLines, height, width, imgDir)
 
             if (!file.exists() || !file.canRead()) {
                 LogWriter.e("BusTextRenderUtils: generated image is missing or unreadable: ${file.absolutePath}")
@@ -265,29 +248,6 @@ object BusTextRenderUtils {
             result = result.dropLast(1)
         }
         return result + ellipsis
-    }
-
-    private fun normalizeDisplayedTime(value: String?): String {
-        return value
-            ?.replace("&lt;", "<")
-            ?.replace("&gt;", ">")
-            ?.trim()
-            ?: ""
-    }
-
-    private fun getDisplayedTimeRank(value: String): Int {
-        val normalized = value.lowercase()
-        return when {
-            normalized == "<<<" || normalized == "arriving" || normalized == "即将到站" -> 0
-            MINUTES_REGEX.containsMatchIn(normalized) -> 1
-            HH_MM_REGEX.matches(normalized) -> 2
-            else -> 3
-        }
-    }
-
-    private fun extractMinuteValue(value: String): Int {
-        return MINUTES_REGEX.find(value.lowercase())?.groupValues?.getOrNull(1)?.toIntOrNull()
-            ?: Int.MAX_VALUE
     }
 
 }

@@ -89,9 +89,9 @@ class MyMqttNotifyListener : MqttNotifyListener {
             }
         }
 
-        val rawElements = busInfoObject
-            ?.optJSONObject("data")
-            ?.optJSONArray("rawElements")
+        val data = busInfoObject?.optJSONObject("data") ?: return null
+        val rawElements = data.optJSONArray("rawElements")
+            ?: data.optJSONArray("rawElement")
             ?: return null
 
         val lines = mutableListOf<BusLine>()
