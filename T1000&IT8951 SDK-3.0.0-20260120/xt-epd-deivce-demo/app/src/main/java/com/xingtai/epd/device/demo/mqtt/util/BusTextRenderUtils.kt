@@ -41,8 +41,8 @@ object BusTextRenderUtils {
     private const val DEFAULT_WIDTH = 2560
     private const val DEFAULT_HEIGHT = 1440
     private const val MAX_CACHED_BUS_IMAGES = 20
-    private val MINUTES_REGEX = Regex("(\\d+)\\s*min", RegexOption.IGNORE_CASE)
-    private val HH_MM_REGEX = Regex("^(\\d{1,2}):(\\d{2})$")
+    private val MINUTES_REGEX = Regex("""(\d+)\s*min""", RegexOption.IGNORE_CASE)
+    private val HH_MM_REGEX = Regex("""^(\d{1,2}):(\d{2})$""")
 
     /**
      * Generate the bus-text image from [request], save it to the image cache directory,
