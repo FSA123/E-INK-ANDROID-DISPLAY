@@ -70,7 +70,6 @@ object BusTextRenderUtils {
                 }
                 when (aRank) {
                     1 -> extractMinuteValue(aTime).compareTo(extractMinuteValue(bTime))
-                    2 -> extractClockMinutes(aTime).compareTo(extractClockMinutes(bTime))
                     else -> 0
                 }
             })
@@ -291,13 +290,4 @@ object BusTextRenderUtils {
             ?: Int.MAX_VALUE
     }
 
-    private fun extractClockMinutes(value: String): Int {
-        val match = HH_MM_REGEX.matchEntire(value) ?: return Int.MAX_VALUE
-        val hour = match.groupValues.getOrNull(1)?.toIntOrNull() ?: return Int.MAX_VALUE
-        val minute = match.groupValues.getOrNull(2)?.toIntOrNull() ?: return Int.MAX_VALUE
-        if (hour !in 0..23 || minute !in 0..59) {
-            return Int.MAX_VALUE
-        }
-        return hour * 60 + minute
-    }
 }

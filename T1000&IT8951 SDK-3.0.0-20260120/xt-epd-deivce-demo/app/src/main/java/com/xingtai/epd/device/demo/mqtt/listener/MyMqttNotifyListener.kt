@@ -48,7 +48,7 @@ class MyMqttNotifyListener : MqttNotifyListener {
 
     private fun handleArrayBusTextRequest(message: String) {
         val request = parseBusTextRequestFromArrayPayload(message)
-        if (request == null || request.lines == null) {
+        if (request?.lines.isNullOrEmpty()) {
             LogUtils.e("BusTextRequest: failed to parse array payload or extract lines from data.rawElements")
             return
         }
