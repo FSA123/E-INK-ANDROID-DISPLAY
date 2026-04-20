@@ -41,6 +41,8 @@ object BusTextRenderUtils {
     private const val DEFAULT_WIDTH = 2560
     private const val DEFAULT_HEIGHT = 1440
     private const val MAX_CACHED_BUS_IMAGES = 20
+    private val MINUTES_REGEX = Regex("(\\d+)\\s*min", RegexOption.IGNORE_CASE)
+    private val HH_MM_REGEX = Regex("^(\\d{1,2}):(\\d{2})$")
 
     /**
      * Generate the bus-text image from [request], save it to the image cache directory,
@@ -57,25 +59,20 @@ object BusTextRenderUtils {
             // 1. Extract the lines or start with an empty list
             val originalLines = request.lines ?: emptyList()
 
-            // 2. Sort the lines using a custom Comparator
+            // 2. Sort by state order: "<<<" -> "__min" -> "hh:mm"
             val sortedLines = originalLines.sortedWith(Comparator { a, b ->
-                val aTime = a.arrivalTime?.trim()?.lowercase() ?: ""
-                val bTime = b.arrivalTime?.trim()?.lowercase() ?: ""
-
-                // Identify if either says "arriving" (highest priority)
-                val aIsArriving = (aTime == "Arriving" || aTime == "即将到站")
-                val bIsArriving = (bTime == "Arriving" || bTime == "即将到站")
-
-                // If one is arriving and the other isn't, the arriving one goes first
-                if (aIsArriving && !bIsArriving) return@Comparator -1
-                if (!aIsArriving && bIsArriving) return@Comparator 1
-
-                // If neither are arriving, extract digits to sort numerically (e.g. "2 min" -> 2, "18 min" -> 18)
-                val aNum = Regex("\\d+").find(aTime)?.value?.toInt() ?: Int.MAX_VALUE
-                val bNum = Regex("\\d+").find(bTime)?.value?.toInt() ?: Int.MAX_VALUE
-
-                // Sort ascending by the numerical value
-                aNum.compareTo(bNum)
+                val aTime = normalizeDisplayedTime(a.arrivalTime)
+                val bTime = normalizeDisplayedTime(b.arrivalTime)
+                val aRank = getDisplayedTimeRank(aTime)
+                val bRank = getDisplayedTimeRank(bTime)
+                if (aRank != bRank) {
+                    return@Comparator aRank.compareTo(bRank)
+                }
+                when (aRank) {
+                    1 -> extractMinuteValue(aTime).compareTo(extractMinuteValue(bTime))
+                    2 -> extractClockMinutes(aTime).compareTo(extractClockMinutes(bTime))
+                    else -> 0
+                }
             })
 
             // 3. Generate the image using the sorted lines
@@ -267,5 +264,35 @@ object BusTextRenderUtils {
             result = result.dropLast(1)
         }
         return result + ellipsis
+    }
+
+    private fun normalizeDisplayedTime(value: String?): String {
+        return value
+            ?.replace("&lt;", "<")
+            ?.replace("&gt;", ">")
+            ?.trim()
+            ?: ""
+    }
+
+    private fun getDisplayedTimeRank(value: String): Int {
+        val normalized = value.lowercase()
+        return when {
+            normalized.contains("<<<") || normalized == "arriving" || normalized == "即将到站" -> 0
+            MINUTES_REGEX.containsMatchIn(normalized) -> 1
+            HH_MM_REGEX.matches(normalized) -> 2
+            else -> 3
+        }
+    }
+
+    private fun extractMinuteValue(value: String): Int {
+        return MINUTES_REGEX.find(value.lowercase())?.groupValues?.getOrNull(1)?.toIntOrNull()
+            ?: Int.MAX_VALUE
+    }
+
+    private fun extractClockMinutes(value: String): Int {
+        val match = HH_MM_REGEX.matchEntire(value) ?: return Int.MAX_VALUE
+        val hour = match.groupValues.getOrNull(1)?.toIntOrNull() ?: return Int.MAX_VALUE
+        val minute = match.groupValues.getOrNull(2)?.toIntOrNull() ?: return Int.MAX_VALUE
+        return hour * 60 + minute
     }
 }
