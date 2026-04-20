@@ -98,14 +98,14 @@ class MyMqttNotifyListener : MqttNotifyListener {
         val limit = minOf(rawElements.length(), 5)
         for (i in 0 until limit) {
             val rawElement = rawElements.optJSONObject(i) ?: continue
-            val toStopName = rawElement.optString("toStopName", "").trim()
-            val displayedTime = normalizeDisplayedTime(rawElement.optString("displayedTime", ""))
-            if (toStopName.isEmpty() && displayedTime.isEmpty()) {
+            val destinationStopName = rawElement.optString("toStopName", "").trim()
+            val displayedTime = rawElement.optString("displayedTime", "").trim()
+            if (destinationStopName.isEmpty() && displayedTime.isEmpty()) {
                 continue
             }
 
             val line = BusLine().apply {
-                busNumber = toStopName
+                busNumber = destinationStopName
                 arrivalTime = displayedTime
             }
             lines.add(line)
@@ -115,12 +115,5 @@ class MyMqttNotifyListener : MqttNotifyListener {
             action = BusTextRequest.ACTION_SEND_BUS_INFO
             this.lines = lines
         }
-    }
-
-    private fun normalizeDisplayedTime(displayedTime: String): String {
-        return displayedTime
-            .replace("&lt;", "<")
-            .replace("&gt;", ">")
-            .trim()
     }
 }
