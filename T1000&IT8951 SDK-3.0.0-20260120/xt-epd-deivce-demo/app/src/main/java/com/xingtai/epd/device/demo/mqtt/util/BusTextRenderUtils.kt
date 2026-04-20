@@ -293,6 +293,9 @@ object BusTextRenderUtils {
         val match = HH_MM_REGEX.matchEntire(value) ?: return Int.MAX_VALUE
         val hour = match.groupValues.getOrNull(1)?.toIntOrNull() ?: return Int.MAX_VALUE
         val minute = match.groupValues.getOrNull(2)?.toIntOrNull() ?: return Int.MAX_VALUE
+        if (hour !in 0..23 || minute !in 0..59) {
+            return Int.MAX_VALUE
+        }
         return hour * 60 + minute
     }
 }
