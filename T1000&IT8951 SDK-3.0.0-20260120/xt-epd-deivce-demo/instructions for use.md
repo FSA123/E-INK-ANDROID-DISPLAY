@@ -44,24 +44,73 @@ MQTT服务器参数设置，以实际服务为准
 
 > Display pictures via MQTT Server
 
+支持两种消息类型，设备通过 `action` 字段决定处理方式。
+
+---
+
+#### 方式 A – 公交到站文字显示（action: `sendBusInfo`）
+
+在设备本地生成 5 行交替配色文字图片，无需下载图片。
+
+| 行号 | 背景颜色 | 字体颜色 |
+|------|--------|--------|
+| 1    | 黑色   | 白色   |
+| 2    | 白色   | 黑色   |
+| 3    | 黑色   | 白色   |
+| 4    | 白色   | 黑色   |
+| 5    | 黑色   | 白色   |
+
+每行显示一条公交信息：左侧为车次号，右侧为到站时间。
+
+**规则**
+- `lines` 字段必须存在（可为空数组 `[]`）。
+- 最多显示 `lines` 中的前 5 条记录，超出部分忽略。
+- 不足 5 条时，剩余行显示为空白。
+- 文字过长时自动截断并显示省略号。
+- `displayMode` 直接传递给 T1000 显示驱动（默认使用 `0`）。
+
+1. 假设设备端消息订阅地址：`serverToDevice/13b0b4eb2e717b9e`
+
+2. 发送 Json 数据（S312EC 示例，2560×1440）：
+
+		{
+		  "action": "sendBusInfo",
+		  "devId": "13b0b4eb2e717b9e",
+		  "displayMode": 0,
+		  "lines": [
+		    {"busNumber": "42",  "arrivalTime": "2 分钟"},
+		    {"busNumber": "17",  "arrivalTime": "5 分钟"},
+		    {"busNumber": "8",   "arrivalTime": "12 分钟"},
+		    {"busNumber": "23",  "arrivalTime": "即将到站"},
+		    {"busNumber": "101", "arrivalTime": "18 分钟"}
+		  ]
+		}
+
+3. 等待设备端显示图片
+
+---
+
+#### 方式 B – 图片 URL 显示（action: `sendImg`）
+
+从 URL 下载预制图片并显示（原有功能）。
 
 1. 假设设备端消息订阅地址：`serverToDevice/13b0b4eb2e717b9e`
 
 2. 发送Json数据：
 
-	{
-	  "action": "sendImg",
-	  "devId": "13b0b4eb2e717b9e",
-	  "url": "https://p6.itc.cn/images01/20201111/526473ac93954907a11fda0e21940b42.jpeg",
-	  "startX":0,
-	  "startY":0,
-	  "width":3200,
-	  "height":1800,
-	  "intervalTime":30,
-	  "displayMode":0
-	}
+		{
+		  "action": "sendImg",
+		  "devId": "13b0b4eb2e717b9e",
+		  "url": "https://p6.itc.cn/images01/20201111/526473ac93954907a11fda0e21940b42.jpeg",
+		  "startX":0,
+		  "startY":0,
+		  "width":3200,
+		  "height":1800,
+		  "intervalTime":30,
+		  "displayMode":0
+		}
 
-3.等待设备端显示图片
+3. 等待设备端显示图片
 
 
 > Display pictures via USB flash disk

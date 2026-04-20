@@ -44,24 +44,73 @@ MQTT server parameter settings, subject to actual service
 
 > Display pictures via MQTT Server
 
+Two message types are supported. The device reads the `action` field to decide how to handle each message.
+
+---
+
+#### Option A – Bus arrival text display (action: `sendBusInfo`)
+
+Renders a 5-band alternating-colour text image directly on the device — no image download required.
+
+| Band | Background | Text   |
+|------|-----------|--------|
+| 1    | Black     | White  |
+| 2    | White     | Black  |
+| 3    | Black     | White  |
+| 4    | White     | Black  |
+| 5    | Black     | White  |
+
+Each band shows one bus line: the bus number on the left and the arrival time on the right.
+
+**Rules**
+- `lines` must be present (can be empty `[]`).
+- At most 5 entries in `lines` are displayed; extras are ignored.
+- Missing entries are rendered as blank bands.
+- Overlong text is truncated with an ellipsis.
+- `displayMode` is passed through to the T1000 display driver (use `0` for the default mode).
+
+1. Assuming the device's message subscription address：`serverToDevice/13b0b4eb2e717b9e`
+
+2. Sending JSON data (S312EC example, 2560×1440)：
+
+		{
+		  "action": "sendBusInfo",
+		  "devId": "13b0b4eb2e717b9e",
+		  "displayMode": 0,
+		  "lines": [
+		    {"busNumber": "42",  "arrivalTime": "2 min"},
+		    {"busNumber": "17",  "arrivalTime": "5 min"},
+		    {"busNumber": "8",   "arrivalTime": "12 min"},
+		    {"busNumber": "23",  "arrivalTime": "Arriving"},
+		    {"busNumber": "101", "arrivalTime": "18 min"}
+		  ]
+		}
+
+3. Waiting for the device to display the image
+
+---
+
+#### Option B – Image URL display (action: `sendImg`)
+
+Downloads a pre-rendered image from a URL and displays it (original behaviour).
 
 1. Assuming the device's message subscription address：`serverToDevice/13b0b4eb2e717b9e`
 
 2. Sending JSON data：
 
-	{
-	  "action": "sendImg",
-	  "devId": "13b0b4eb2e717b9e",
-	  "url": "https://p6.itc.cn/images01/20201111/526473ac93954907a11fda0e21940b42.jpeg",
-	  "startX":0,
-	  "startY":0,
-	  "width":3200,
-	  "height":1800,
-	  "intervalTime":30,
-	  "displayMode":0
-	}
+		{
+		  "action": "sendImg",
+		  "devId": "13b0b4eb2e717b9e",
+		  "url": "https://p6.itc.cn/images01/20201111/526473ac93954907a11fda0e21940b42.jpeg",
+		  "startX":0,
+		  "startY":0,
+		  "width":3200,
+		  "height":1800,
+		  "intervalTime":30,
+		  "displayMode":0
+		}
 
-3.Waiting for the device to display the image
+3. Waiting for the device to display the image
 
 
 > Display pictures via USB flash disk
