@@ -40,6 +40,7 @@ object BusTextRenderUtils {
     private const val MAX_LINES = 5
     private const val DEFAULT_WIDTH = 2560
     private const val DEFAULT_HEIGHT = 1440
+    private const val MAX_CACHED_BUS_IMAGES = 20
 
     /**
      * Generate the bus-text image from [request], save it to the image cache directory,
@@ -52,9 +53,12 @@ object BusTextRenderUtils {
             val height = if (screenType.height > 0) screenType.height else DEFAULT_HEIGHT
 
             val imgDir = AppConstant.getImgDir()
-            cleanupOldBusImages(imgDir)
 
             val file = generateImage(request.lines ?: emptyList(), width, height, imgDir)
+            if (!file.exists() || !file.canRead()) {
+                LogWriter.e("BusTextRenderUtils: generated image is missing or unreadable: ${file.absolutePath}")
+                return
+            }
 
             val epdImage = EpdImage(file, 0f)
             epdImage.name = file.name
@@ -66,9 +70,10 @@ object BusTextRenderUtils {
             epdImage.formatType = EpdImage.FORMAT_TYPE_FILE
 
             T1000HelperFactory.instance?.run {
-                addImage(epdImage)
+                enqueueLatest(epdImage)
                 requestSleepInterrupted()
             }
+            pruneOldBusImages(imgDir)
             LogWriter.i("Bus text image enqueued: ${file.absolutePath}")
         } catch (e: Exception) {
             LogWriter.e("BusTextRenderUtils render error", e)
@@ -79,16 +84,37 @@ object BusTextRenderUtils {
     // Internal helpers
     // -------------------------------------------------------------------------
 
+    private fun enqueueLatest(epdImage: EpdImage) {
+        val helper = T1000HelperFactory.instance ?: return
+        val offered = helper.addImage(epdImage)
+        if (!offered) {
+            LogWriter.w("BusTextRenderUtils: queue full, clear pending queue and enqueue latest bus image")
+            helper.clearImage()
+            val retryOffered = helper.addImage(epdImage)
+            if (!retryOffered) {
+                LogWriter.e("BusTextRenderUtils: enqueue failed even after queue reset")
+            }
+        }
+    }
+
     /**
-     * Remove previously generated bus-text PNG files from [imgDir] to avoid cache accumulation.
+     * Keep only the latest generated bus-text files and remove old ones to avoid cache accumulation.
      */
-    private fun cleanupOldBusImages(imgDir: String) {
+    private fun pruneOldBusImages(imgDir: String) {
         try {
-            File(imgDir).listFiles { _, name ->
+            val files = File(imgDir).listFiles { _, name ->
                 name.startsWith("bus_text_") && name.endsWith(".png")
-            }?.forEach { it.delete() }
+            }?.sortedByDescending { it.lastModified() } ?: emptyList()
+            if (files.size <= MAX_CACHED_BUS_IMAGES) {
+                return
+            }
+            files.drop(MAX_CACHED_BUS_IMAGES).forEach {
+                if (!it.delete()) {
+                    LogWriter.w("BusTextRenderUtils: failed to delete old cache file: ${it.absolutePath}")
+                }
+            }
         } catch (e: Exception) {
-            LogWriter.w("BusTextRenderUtils: could not clean old bus images: " + e.message)
+            LogWriter.w("BusTextRenderUtils: could not prune old bus images: " + e.message)
         }
     }
 
