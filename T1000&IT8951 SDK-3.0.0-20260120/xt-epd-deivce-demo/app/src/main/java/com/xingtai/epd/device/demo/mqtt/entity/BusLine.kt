@@ -10,5 +10,6 @@ package com.xingtai.epd.device.demo.mqtt.entity
  */
 class BusLine {
     var busNumber: String? = null
+    var destinationStopName: String? = null
     var arrivalTime: String? = null
 }

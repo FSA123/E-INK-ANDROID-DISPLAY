@@ -105,7 +105,7 @@ class MyMqttNotifyListener : MqttNotifyListener {
             }
 
             val line = BusLine().apply {
-                busNumber = destinationStopName
+                this.destinationStopName = destinationStopName
                 arrivalTime = displayedTime
             }
             lines.add(line)

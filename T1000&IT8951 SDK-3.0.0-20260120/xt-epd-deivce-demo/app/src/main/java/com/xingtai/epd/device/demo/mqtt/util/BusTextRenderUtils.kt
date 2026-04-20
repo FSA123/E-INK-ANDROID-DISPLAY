@@ -188,7 +188,9 @@ object BusTextRenderUtils {
             canvas.drawRect(0f, bandTop.toFloat(), width.toFloat(), bandBottom.toFloat(), paint)
 
             val line = lines.getOrNull(i)
-            val busNumber = line?.busNumber?.trim()?.takeIf { it.isNotEmpty() } ?: ""
+            val busNumber = line?.destinationStopName?.trim()?.takeIf { it.isNotEmpty() }
+                ?: line?.busNumber?.trim()?.takeIf { it.isNotEmpty() }
+                ?: ""
             val arrivalTime = line?.arrivalTime?.trim()?.takeIf { it.isNotEmpty() } ?: ""
 
             if (busNumber.isEmpty() && arrivalTime.isEmpty()) {
