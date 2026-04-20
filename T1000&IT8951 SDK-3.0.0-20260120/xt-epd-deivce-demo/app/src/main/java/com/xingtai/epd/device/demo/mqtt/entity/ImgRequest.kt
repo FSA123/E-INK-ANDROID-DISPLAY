@@ -34,4 +34,9 @@ class ImgRequest {
     var displayMode = 0
 
     var intervalTime = 0f
+
+    companion object {
+        /** Action value that triggers the image-download display flow. */
+        const val ACTION_SEND_IMG = "sendImg"
+    }
 }
