@@ -109,7 +109,9 @@ object BusTextRenderUtils {
                 return
             }
             files.drop(MAX_CACHED_BUS_IMAGES).forEach {
-                it.delete()
+                if (!it.delete()) {
+                    LogWriter.w("BusTextRenderUtils: failed to delete old cache file: ${it.absolutePath}")
+                }
             }
         } catch (e: Exception) {
             LogWriter.w("BusTextRenderUtils: could not prune old bus images: " + e.message)
