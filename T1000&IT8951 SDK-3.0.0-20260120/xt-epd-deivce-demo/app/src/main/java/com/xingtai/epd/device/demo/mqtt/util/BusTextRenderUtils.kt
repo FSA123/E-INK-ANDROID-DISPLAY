@@ -54,7 +54,34 @@ object BusTextRenderUtils {
 
             val imgDir = AppConstant.getImgDir()
 
-            val file = generateImage(request.lines ?: emptyList(), width, height, imgDir)
+            // 1. Extract the lines or start with an empty list
+            val originalLines = request.lines ?: emptyList()
+
+            // 2. Sort the lines using a custom Comparator
+            val sortedLines = originalLines.sortedWith(Comparator { a, b ->
+                val aTime = a.arrivalTime?.trim()?.lowercase() ?: ""
+                val bTime = b.arrivalTime?.trim()?.lowercase() ?: ""
+
+                // Identify if either says "arriving" (highest priority)
+                val aIsArriving = (aTime == "Arriving" || aTime == "即将到站")
+                val bIsArriving = (bTime == "Arriving" || bTime == "即将到站")
+
+                // If one is arriving and the other isn't, the arriving one goes first
+                if (aIsArriving && !bIsArriving) return@Comparator -1
+                if (!aIsArriving && bIsArriving) return@Comparator 1
+
+                // If neither are arriving, extract digits to sort numerically (e.g. "2 min" -> 2, "18 min" -> 18)
+                val aNum = Regex("\\d+").find(aTime)?.value?.toInt() ?: Int.MAX_VALUE
+                val bNum = Regex("\\d+").find(bTime)?.value?.toInt() ?: Int.MAX_VALUE
+
+                // Sort ascending by the numerical value
+                aNum.compareTo(bNum)
+            })
+
+            // 3. Generate the image using the sorted lines
+            // (Note: height and width are swapped here to accommodate your 90-degree rotation)
+            val file = generateImage(sortedLines, height, width, imgDir)
+
             if (!file.exists() || !file.canRead()) {
                 LogWriter.e("BusTextRenderUtils: generated image is missing or unreadable: ${file.absolutePath}")
                 return
@@ -199,13 +226,29 @@ object BusTextRenderUtils {
             canvas.drawRect(0f, filledHeight.toFloat(), width.toFloat(), height.toFloat(), paint)
         }
 
-        // Persist to file
+        // 1. Create a Matrix for rotation (-90 degrees to counter the 90 degree clockwise rotation)
+        val matrix = android.graphics.Matrix()
+        matrix.postRotate(-90f)
+
+        // 2. Create a new rotated bitmap
+        val rotatedBitmap = Bitmap.createBitmap(
+            bitmap,
+            0, 0,
+            bitmap.width, bitmap.height,
+            matrix,
+            true
+        )
+
+        // 3. Persist the rotated bitmap to file
         val filename = "bus_text_${System.currentTimeMillis()}.png"
         val file = File(imgDir, filename)
         FileOutputStream(file).use { out ->
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            rotatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
         }
+
+        // 4. Recycle both bitmaps to free up memory
         bitmap.recycle()
+        rotatedBitmap.recycle()
 
         return file
     }

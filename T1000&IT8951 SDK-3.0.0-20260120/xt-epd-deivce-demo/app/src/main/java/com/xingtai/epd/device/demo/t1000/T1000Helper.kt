@@ -175,7 +175,7 @@ class T1000Helper : AbstractT1000Helper() {
                         throw Exception("The image data format is not supported：$formatType")
                     }
 
-                    if (screenType == ScreenType.SCREEN_13_3_MONOCHROME){
+                    if (screenType == ScreenType.SCREEN_31_2){
                         t1000Device!!.setPower(true)
                     }
 
