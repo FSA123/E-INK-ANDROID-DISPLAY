@@ -1,4 +1,4 @@
-# xt-epd-deivce-demo
+# xt-epd-device-demo
 
 Primary Android demo app for E‑INK display using T1000 + MCU SDK.
 
