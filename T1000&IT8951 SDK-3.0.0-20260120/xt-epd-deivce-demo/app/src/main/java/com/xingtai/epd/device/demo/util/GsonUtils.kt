@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder
 import java.lang.reflect.Type
 
 /**
- *
+ * Gson utility class.
  *
  * @author Kelly
  * @version 1.0.0
@@ -17,12 +17,20 @@ object GsonUtils {
     var gson: Gson = GsonBuilder().disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
 
 
-    fun <T> fromJson(jsonStr: String, tClass: Class<T>): T {
-        return gson.fromJson(jsonStr, tClass)
+    fun <T> fromJson(jsonStr: String, tClass: Class<T>): T? {
+        return try {
+            gson.fromJson(jsonStr, tClass)
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    fun <T> fromJson(jsonStr: String, type: Type): T {
-        return gson.fromJson(jsonStr, type)
+    fun <T> fromJson(jsonStr: String, type: Type): T? {
+        return try {
+            gson.fromJson(jsonStr, type)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun toJson(`object`: Any): String {

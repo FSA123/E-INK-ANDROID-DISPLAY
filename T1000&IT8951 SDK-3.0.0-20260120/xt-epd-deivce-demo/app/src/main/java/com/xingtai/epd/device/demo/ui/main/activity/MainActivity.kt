@@ -18,7 +18,7 @@ import com.xingtai.epd.device.demo.databinding.MainActivityBinding
 import com.xingtai.epd.device.demo.entity.BatteryType
 import com.xingtai.epd.device.demo.mcu.entity.SerialConfig
 import com.xingtai.epd.device.demo.mqtt.entity.MqttConfig
-import com.xingtai.epd.device.demo.service.MyMqttService
+import com.xingtai.epd.device.demo.service.HttpPollingService
 import com.xingtai.epd.device.demo.service.T1000Service
 import com.xingtai.epd.device.demo.service.listener.ServiceListener
 import com.xingtai.epd.device.demo.t1000.T1000HelperFactory
@@ -73,7 +73,7 @@ class MainActivity : BaseActivity<MainActivityBinding>(MainActivityBinding::infl
                 initSerialPortPath()
                 initMqttConfig(mqttConfig)
                 if (isValidConfig()) {
-                    MyMqttService.startService(mContext)
+                    HttpPollingService.startService(mContext)
                     T1000Service.startService(mContext)
                     MyApplication.getMainThreadExecutor().postDelayed({
                         val serviceRunning = MyAppUtils.isServiceRunning(mContext, T1000Service::class.java.name)
@@ -101,8 +101,7 @@ class MainActivity : BaseActivity<MainActivityBinding>(MainActivityBinding::infl
     private fun isValidConfig(): Boolean {
         val screenType = AppConfigUtils.screenType
         val serialConfig = getSerialConfig()
-        val mqttConfig = getMqttConfig()
-        return screenType != null && serialConfig != null && mqttConfig != null
+        return screenType != null && serialConfig != null
     }
 
     private fun initDeviceList(screenType: ScreenType?) {
@@ -272,7 +271,7 @@ class MainActivity : BaseActivity<MainActivityBinding>(MainActivityBinding::infl
                     ToastUtils.showShort(this, getString(R.string.tip_invalid_config))
                    return
                 }
-                MyMqttService.startService(mContext)
+                HttpPollingService.startService(mContext)
                 T1000Service.startService(mContext)
                 updateButtonStatus(true)
             }
@@ -281,7 +280,7 @@ class MainActivity : BaseActivity<MainActivityBinding>(MainActivityBinding::infl
                 if (!isValidConfig()) {
                     return
                 }
-                MyMqttService.stopService(mContext)
+                HttpPollingService.stopService(mContext)
                 T1000Service.stopService(mContext,object :ServiceListener{
                     override fun onDestroy() {
                         updateButtonStatus(false)

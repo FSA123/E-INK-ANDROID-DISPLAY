@@ -1,6 +1,6 @@
 package com.xingtai.epd.device.demo.mqtt.listener
 
-import com.sjl.util.LogUtils
+import android.util.Log
 import com.xingtai.epd.device.demo.mqtt.entity.BusLine
 import com.xingtai.epd.device.demo.mqtt.entity.BusTextRequest
 import com.xingtai.epd.device.demo.mqtt.entity.ImgRequest
@@ -27,42 +27,62 @@ import org.json.JSONObject
  * @copyright(C) 2023 江西兴泰科技股份有限公司
  */
 class MyMqttNotifyListener : MqttNotifyListener {
+
+    companion object {
+        private const val TAG = "SMARTTRANS"
+    }
+
     override fun onNotify(topic: String, message: String, qos: Int) {
-        LogUtils.i("topic:$topic,receive message:$message,qos:$qos")
+        Log.i(TAG, "STEP1: onNotify called. topic=$topic  qos=$qos  payloadLength=${message.length}")
+        Log.i(TAG, "STEP1: raw payload start: '${message.take(120).replace("\n", "\\n")}'")
         val payload = message.trim()
+        Log.i(TAG, "STEP2: trimmed payload starts with '[' = ${payload.startsWith("[")}")
         try {
             if (payload.startsWith("[")) {
+                Log.i(TAG, "STEP3: routing to handleArrayBusTextRequest")
                 handleArrayBusTextRequest(payload)
                 return
             }
-            val rawAction = JSONObject(payload).optString("action", null)
+            val jsonObject = JSONObject(payload)
+            val rawAction = jsonObject.optString("action", "")
+            Log.i(TAG, "STEP3: object payload, action='$rawAction'")
             when (rawAction) {
                 BusTextRequest.ACTION_SEND_BUS_INFO -> handleBusTextRequest(payload)
                 ImgRequest.ACTION_SEND_IMG -> handleImgRequest(payload)
-                else -> LogUtils.w("Unsupported or missing action in MQTT message: $rawAction")
+                else -> Log.w(TAG, "STEP3: unsupported action: $rawAction")
             }
         } catch (e: Exception) {
-            LogUtils.e("json parsing exception", e)
+            Log.e(TAG, "STEP_ERR: exception during parsing", e)
         }
     }
 
     private fun handleArrayBusTextRequest(message: String) {
+        Log.i(TAG, "STEP4: entering parseBusTextRequestFromArrayPayload")
         val request = parseBusTextRequestFromArrayPayload(message)
-        if (request?.lines.isNullOrEmpty()) {
-            LogUtils.e("BusTextRequest: failed to parse array payload or extract lines from data.rawElements")
+        if (request == null) {
+            Log.e(TAG, "STEP4_ERR: parseBusTextRequestFromArrayPayload returned null")
             return
         }
+        if (request.lines.isNullOrEmpty()) {
+            Log.e(TAG, "STEP4_ERR: parsed request has no lines")
+            return
+        }
+        Log.i(TAG, "STEP5: parsed ${request.lines!!.size} lines — screen will show:")
+        request.lines!!.forEachIndexed { i, line ->
+            Log.i(TAG, "  [${i + 1}] RouteName='${line.destinationStopName}'   ArrivalTime='${line.arrivalTime}'")
+        }
+        Log.i(TAG, "STEP6: calling BusTextRenderUtils.render()")
         BusTextRenderUtils.render(request)
     }
 
     private fun handleBusTextRequest(message: String) {
         val request = GsonUtils.fromJson(message, BusTextRequest::class.java)
         if (request == null) {
-            LogUtils.e("BusTextRenderUtils: failed to parse BusTextRequest")
+            Log.e(TAG, "STEP4_ERR: failed to parse BusTextRequest")
             return
         }
         if (request.lines == null) {
-            LogUtils.e("BusTextRequest: missing required 'lines' field")
+            Log.e(TAG, "STEP4_ERR: BusTextRequest missing required 'lines' field")
             return
         }
         BusTextRenderUtils.render(request)
@@ -80,39 +100,56 @@ class MyMqttNotifyListener : MqttNotifyListener {
 
     private fun parseBusTextRequestFromArrayPayload(message: String): BusTextRequest? {
         val root = JSONArray(message)
+        Log.i(TAG, "PARSE: root array length=${root.length()}")
+
         var busInfoObject: JSONObject? = null
         for (i in 0 until root.length()) {
             val item = root.optJSONObject(i) ?: continue
-            if (item.optInt("id", -1) == 1) {
+            val id = item.optInt("id", -1)
+            Log.i(TAG, "PARSE: item[$i] id=$id")
+            if (id == 1) {
                 busInfoObject = item
                 break
             }
         }
 
-        val data = busInfoObject?.optJSONObject("data") ?: return null
-        val rawElements = data.optJSONArray("rawElements")
-            ?: data.optJSONArray("rawElement")
-            ?: return null
+        if (busInfoObject == null) {
+            Log.e(TAG, "PARSE_ERR: no object with id=1 found in root array")
+            return null
+        }
 
+        val data = busInfoObject.optJSONObject("data")
+        if (data == null) {
+            Log.e(TAG, "PARSE_ERR: object with id=1 has no 'data' field")
+            return null
+        }
+
+        val rawElements = data.optJSONArray("rawElements") ?: data.optJSONArray("rawElement")
+        if (rawElements == null) {
+            Log.e(TAG, "PARSE_ERR: 'data' has no 'rawElements' field. data keys=${data.keys().asSequence().toList()}")
+            return null
+        }
+
+        val stationName = busInfoObject.optString("name", "").trim()
+        Log.i(TAG, "PARSE: stationName='$stationName'")
+
+        Log.i(TAG, "PARSE: rawElements count=${rawElements.length()}, will use first ${minOf(rawElements.length(), 5)}")
         val lines = mutableListOf<BusLine>()
         val limit = minOf(rawElements.length(), 5)
         for (i in 0 until limit) {
             val rawElement = rawElements.optJSONObject(i) ?: continue
-            val destinationStopName = rawElement.optString("toStopName", "").trim()
-            val displayedTime = rawElement.optString("displayedTime", "").trim()
-            if (destinationStopName.isEmpty() || displayedTime.isEmpty()) {
-                continue
-            }
-
-            val line = BusLine().apply {
-                this.destinationStopName = destinationStopName
-                arrivalTime = displayedTime
-            }
-            lines.add(line)
+            val stopName = rawElement.optString("toStopName", "").trim()
+            val time = rawElement.optString("displayedTime", "").trim()
+            Log.i(TAG, "PARSE: rawElement[$i] toStopName='$stopName'  displayedTime='$time'")
+            lines.add(BusLine().apply {
+                destinationStopName = stopName
+                arrivalTime = time
+            })
         }
 
         return BusTextRequest().apply {
             action = BusTextRequest.ACTION_SEND_BUS_INFO
+            this.stationName = stationName
             this.lines = lines
         }
     }

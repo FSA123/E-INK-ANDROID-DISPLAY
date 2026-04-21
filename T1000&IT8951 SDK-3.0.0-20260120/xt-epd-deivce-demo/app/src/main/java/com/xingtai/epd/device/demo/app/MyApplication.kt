@@ -16,6 +16,7 @@ import com.xingtai.device.mcu.Mcu
 import com.xingtai.device.t1000.T1000
 import com.xingtai.device.t1000.TConConstant
 import com.xingtai.epd.device.demo.util.MyAppUtils
+import com.xingtai.epd.device.demo.util.NtpClient
 import me.jessyan.autosize.AutoSizeConfig
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -97,6 +98,7 @@ open class MyApplication : Application() {
                 ))
         //Set the maximum number of parallel downloads
         FileDownloader.getImpl().setMaxNetworkThreadCount(3)
+        NtpClient.start()
     }
 
 

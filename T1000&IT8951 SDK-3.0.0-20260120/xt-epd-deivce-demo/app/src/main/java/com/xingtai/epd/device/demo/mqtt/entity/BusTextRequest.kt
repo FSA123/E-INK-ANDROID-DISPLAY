@@ -31,6 +31,7 @@ class BusTextRequest {
     var action: String? = null
     var devId: String? = null
     var displayMode: Int = 0
+    var stationName: String? = null
     var lines: List<BusLine>? = null
 
     companion object {
